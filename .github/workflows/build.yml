@@ -1,0 +1,92 @@
+name: CI Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      Build_Kernel:
+        required: true
+        type: choice
+        default: KSU & NonKSU
+        options:
+        - KSU
+        - NonKSU
+        - KSU & NonKSU
+      os:
+        required: true
+        type: string
+        default: ubuntu-latest
+
+jobs:
+  build-ksu:
+    if: ${{ (inputs.Build_Kernel == 'KSU' || inputs.Build_Kernel == 'KSU & NonKSU') && !failure() && !cancelled() }}
+    uses: ./.github/workflows/build-kernel.yml
+    with:
+      include_ksu: "KSU"
+      os: ${{ inputs.os }}
+    secrets:
+      kernel_git: ${{ secrets.Kernel_Git }}
+
+  build-nonksu:
+    if: ${{ inputs.Build_Kernel == 'NonKSU' || inputs.Build_Kernel == 'KSU & NonKSU' }}
+    uses: ./.github/workflows/build-kernel.yml
+    with:
+      include_ksu: "NonKSU"
+      os: ${{ inputs.os }}
+    secrets:
+      kernel_git: ${{ secrets.Kernel_Git }}
+
+  release:
+    needs: [build-ksu-manager, build-ksu, build-nonksu]
+    if: |
+      always() &&
+      !failure() &&
+      !cancelled()
+    runs-on: ${{ inputs.os }}
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get Tag
+        id: tag
+        run: |
+          latest_tag=$(curl -s https://api.github.com/repos/$GITHUB_REPOSITORY/releases/latest | grep "tag_name" | cut -d '"' -f 4)
+          if [[ -z "$latest_tag" ]]; then latest_tag='v0'; fi
+          echo "Latest Tag: $latest_tag"
+          echo "tag=v$((${latest_tag:1} + 1))" >> $GITHUB_ENV
+
+      - name: Download artifacts
+        id: artifacts
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: false
+          path: out/download/.
+
+      - name: Prepare Release
+        id: prepare
+        run: |
+          cd $GITHUB_WORKSPACE
+          mkdir -p out/artifacts
+          if [[ $(ls out/download | grep "\-KSU") ]]; then
+            cp out/download/*-KSU/bodyFile.md out/bodyFile.md
+            echo "name=$(cat out/download/*-KSU/name.txt)" >> $GITHUB_ENV
+          else
+            cp out/download/*-NonKSU/bodyFile.md out/bodyFile.md
+            echo "name=$(cat out/download/*-NonKSU/name.txt)" >> $GITHUB_ENV
+          fi
+
+      - name: Release
+        id: release
+        uses: ncipollo/release-action@v1
+        with:
+          name: "${{ env.name }}-${{ env.tag }}"
+          tag: "${{ env.tag }}"
+          allowUpdates: false
+          bodyFile: "${{ github.workspace }}/out/bodyFile.md"
+          artifacts: "${{ github.workspace }}/out/artifacts/*"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup
+        id: cleanup
+        run: rm -r $GITHUB_WORKSPACE/out/*

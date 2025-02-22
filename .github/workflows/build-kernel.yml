@@ -1,0 +1,59 @@
+name: Build Kernel
+
+on:
+  workflow_call:
+    inputs:
+      include_ksu:
+        required: true
+        type: string
+      os:
+        required: true
+        type: string
+        default: ubuntu-latest
+    secrets:
+      kernel_git:
+        required: true
+
+jobs:
+  build-kernel:
+    runs-on: ${{ inputs.os }}
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Resize swap
+        uses: actionhippie/swap-space@v1.0.2
+        with:
+          size: 16G
+      - name: Download Manager Artifact
+        if: ${{ inputs.include_ksu_manager == 'true' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: manager
+          path: out/manager/.
+      - name: Environment
+        id: env
+        run: |
+            echo "Setting up the environment"
+            sudo bash env.sh
+      - name: Build
+        id: build
+        run: |
+            echo "Building ${{ inputs.include_ksu }}"
+            sudo bash main.sh ${{ inputs.include_ksu }} ${{ secrets.kernel_git }}
+      - name: Prepare Upload
+        id: prepare
+        run: |
+          cd $GITHUB_WORKSPACE/out
+          zip_name="$(ls *.zip)"
+          echo "kernel_name=${zip_name::-4}" >> $GITHUB_ENV
+          if [ ! -f name.txt ]; then
+              echo "${{ env.kernel_name }}" > name.txt
+          fi
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.kernel_name }}
+          path: out/*

@@ -18,7 +18,7 @@ if [[ $KSU_ENABLED == "true" ]]; then
     git clone https://gitlab.com/simonpunk/susfs4ksu -b kernel-5.4 susfs4ksu
     cp susfs4ksu/kernel_patches/fs/* fs/
     cp susfs4ksu/kernel_patches/include/linux/* include/linux/
-    patch -p1 < susfs4ksu/50_add_susfs_in_kernel.patch
+    patch -p1 < susfs4ksu/kernel_patches/50_add_susfs_in_kernel-5.4.patch
 
     echo "CONFIG_KSU=y" >> $DEVICE_DEFCONFIG_FILE
     echo "CONFIG_KSU_SUSFS=y" >> $DEVICE_DEFCONFIG_FILE

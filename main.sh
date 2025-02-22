@@ -19,7 +19,7 @@ ANYKERNEL3_BRANCH="stone"
 
 # Build
 DEVICE_CODE="stone"
-DEVICE_DEFCONFIG="stone_deconfig"
+DEVICE_DEFCONFIG="stone_defconfig"
 COMMON_DEFCONFIG=""
 DEVICE_ARCH="arch/arm64"
 

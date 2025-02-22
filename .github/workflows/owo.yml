@@ -6,7 +6,7 @@ on:
       Build_Kernel:
         required: true
         type: choice
-        default: KSU & NonKSU
+        default: KSU
         options:
         - KSU
         - NonKSU

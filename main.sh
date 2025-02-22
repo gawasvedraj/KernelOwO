@@ -40,7 +40,7 @@ fi
 
 if [[ $2 == *.git ]]; then
     KERNEL_GIT=$2
-    KERNEL_TEMP=$($2 | cut -d"@" -f2)
+    KERNEL_TEMP=$(echo $2 | cut -d"@" -f2)
     echo "Input changed KERNEL_GIT to $KERNEL_TEMP"
 fi
 

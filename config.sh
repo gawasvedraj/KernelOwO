@@ -16,8 +16,8 @@ if [[ $KSU_ENABLED == "true" ]]; then
     cd $KERNEL_DIR && curl https://raw.githubusercontent.com/$KERNELSU_REPO/refs/heads/main/kernel/setup.sh | bash -s $KERNELSU_BRANCH
 
     git clone https://gitlab.com/simonpunk/susfs4ksu -b kernel-5.4 susfs4ksu
-    cp susfs4ksu/kernel_patches/fs/* common/fs/
-    cp susfs4ksu/kernel_patches/include/linux/* common/include/linux/
+    cp susfs4ksu/kernel_patches/fs/* fs/
+    cp susfs4ksu/kernel_patches/include/linux/* include/linux/
     patch -p1 < susfs4ksu/50_add_susfs_in_kernel.patch
 
     echo "CONFIG_KSU=y" >> $DEVICE_DEFCONFIG_FILE
@@ -26,7 +26,7 @@ if [[ $KSU_ENABLED == "true" ]]; then
 
     KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
     KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10200))
-    SUSFS_VERSION=$(grep "SUSFS_VERSION" $WORKDIR/patches/KernelSU/SuSFS/$KERNEL_VER/susfs.h | cut -d '"' -f2 )
+    SUSFS_VERSION=$(grep "SUSFS_VERSION" $KERNEL_DIR/include/linux/susfs.h | cut -d '"' -f2 )
 
     msg "KernelSU Version: $KERNELSU_VERSION"
     msg "SuSFS version: $SUSFS_VERSION"

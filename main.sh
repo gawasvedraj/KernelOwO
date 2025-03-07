@@ -10,7 +10,7 @@ KERNEL_BRANCH="curse"
 
 # KernelSU
 KERNELSU_REPO="rsuntk/KernelSU"
-KERNELSU_BRANCH="wip/susfs-v1.5.5-new"
+KERNELSU_BRANCH="susfs-v1.5.5"
 KSU_ENABLED="false"
 
 # Anykernel3

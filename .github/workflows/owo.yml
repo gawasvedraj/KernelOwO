@@ -75,6 +75,7 @@ jobs:
             cp out/download/*-NonKSU/bodyFile.md out/bodyFile.md
             echo "name=$(cat out/download/*-NonKSU/name.txt)" >> $GITHUB_ENV
           fi
+          cp out/download/*KSU/*.zip out/artifacts/
 
       - name: Release
         id: release

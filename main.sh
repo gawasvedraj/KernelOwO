@@ -160,24 +160,7 @@ cp *.zip $WORKDIR/out
 # Release Files
 cd $WORKDIR/out
 msg "Release Files"
-echo "
-## [$KERNEL_NAME]($README)
-- **Time**: $TIME # CET
-
-- **Codename**: $DEVICE_CODE
-
-<br>
-
-- **[Kernel]($KERNEL_SOURCE) Version**: $KERNEL_VERSION
-- **[KernelSU]($KERNELSU_SOURCE) Version**: $KERNELSU_VERSION
-- **[SuSFS](https://gitlab.com/simonpunk/susfs4ksu) Version**: $SUSFS_VERSION
-- **Note**: Use [xx Manager](https://github.com/backslashxx/KernelSU/releases/latest).
-
-<br>
-
-- **[CLANG]($CLANG_SOURCE) Version**: $CLANG_VERSION
-- **LLD Version**: $LLD_VERSION
-" > bodyFile.md
+echo "null" > bodyFile.md
 echo "$TITLE" > name.txt
 #echo "$KERNEL_NAME" > name.txt
 

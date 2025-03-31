@@ -76,17 +76,6 @@ jobs:
           fi
           cp out/download/*KSU/*.zip out/artifacts/
 
-      - name: Release
-        id: release
-        uses: ncipollo/release-action@v1
-        with:
-          name: "${{ env.name }}-${{ env.tag }}"
-          tag: "${{ env.tag }}"
-          allowUpdates: false
-          bodyFile: "${{ github.workspace }}/out/bodyFile.md"
-          artifacts: "${{ github.workspace }}/out/artifacts/*"
-          token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Cleanup
         id: cleanup
         run: rm -r $GITHUB_WORKSPACE/out/*

@@ -38,7 +38,6 @@ jobs:
   release:
     needs: [build-ksu, build-nonksu]
     if: |
-      always() &&
       !failure() &&
       !cancelled()
     runs-on: ${{ inputs.os }}

@@ -13,12 +13,8 @@ touch $KERNEL_DIR/.scmversion
 
 msg "KernelSU"
 if [[ $KSU_ENABLED == "true" ]]; then
-    cd $KERNEL_DIR && curl https://raw.githubusercontent.com/$KERNELSU_REPO/refs/heads/main/kernel/setup.sh | bash -s $KERNELSU_BRANCH
+    cd $KERNEL_DIR && curl https://raw.githubusercontent.com/$KERNELSU_REPO/refs/heads/magic/kernel/setup.sh | bash -s $KERNELSU_BRANCH
     msg "Importing KernelSU..."
-
-    cp $WORKDIR/hook_patches_ksu-5.4.patch $KERNEL_DIR/
-    patch -p1 < hook_patches_ksu-5.4.patch
-    msg "Importing KSU hooks for 5.4 kernel..."
 
     git clone https://gitlab.com/simonpunk/susfs4ksu -b kernel-5.4 susfs4ksu
     cp susfs4ksu/kernel_patches/fs/* fs/

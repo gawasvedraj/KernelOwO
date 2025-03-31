@@ -9,8 +9,8 @@ KERNEL_GIT="https://github.com/gawasvedraj/kernel_xiaomi_stone.git"
 KERNEL_BRANCH="curse"
 
 # KernelSU
-KERNELSU_REPO="rsuntk/KernelSU"
-KERNELSU_BRANCH="susfs-v1.5.5"
+KERNELSU_REPO="backslashxx/KernelSU"
+KERNELSU_BRANCH="12072+sus155"
 KSU_ENABLED="false"
 
 # Anykernel3
@@ -171,7 +171,7 @@ echo "
 - **[Kernel]($KERNEL_SOURCE) Version**: $KERNEL_VERSION
 - **[KernelSU]($KERNELSU_SOURCE) Version**: $KERNELSU_VERSION
 - **[SuSFS](https://gitlab.com/simonpunk/susfs4ksu) Version**: $SUSFS_VERSION
-- **Note**: Use [RKSU Manager](https://github.com/rsuntk/KernelSU/releases/latest).
+- **Note**: Use [xx Manager](https://github.com/backslashxx/KernelSU/releases/latest).
 
 <br>
 

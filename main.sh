@@ -38,11 +38,6 @@ elif [[ $1 == "NonKSU" ]]; then
     echo "Input changed KSU_ENABLED to false"
 fi
 
-if [[ $2 == *.git ]]; then
-    KERNEL_GIT=$2
-    echo "Input changed KERNEL_GIT to $KERNEL_GIT"
-fi
-
 # Set variables
 WORKDIR="$(pwd)"
 

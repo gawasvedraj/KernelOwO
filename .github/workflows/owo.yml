@@ -23,8 +23,6 @@ jobs:
     with:
       include_ksu: "KSU"
       os: ${{ inputs.os }}
-    secrets:
-      kernel_git: ${{ secrets.Kernel_Git }}
 
   build-nonksu:
     if: ${{ inputs.Build_Kernel == 'NonKSU' || inputs.Build_Kernel == 'KSU & NonKSU' }}
@@ -32,8 +30,6 @@ jobs:
     with:
       include_ksu: "NonKSU"
       os: ${{ inputs.os }}
-    secrets:
-      kernel_git: ${{ secrets.Kernel_Git }}
 
   release:
     needs: [build-ksu, build-nonksu]

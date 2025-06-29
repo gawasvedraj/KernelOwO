@@ -10,9 +10,6 @@ on:
         required: true
         type: string
         default: ubuntu-latest
-    secrets:
-      kernel_git:
-        required: true
 
 jobs:
   build-kernel:
@@ -36,7 +33,7 @@ jobs:
         id: build
         run: |
             echo "Building ${{ inputs.include_ksu }}"
-            sudo bash main.sh ${{ inputs.include_ksu }} ${{ secrets.kernel_git }}
+            sudo bash main.sh ${{ inputs.include_ksu }}
       - name: Prepare Upload
         id: prepare
         run: |

@@ -53,8 +53,8 @@ README="https://github.com/gawasvedraj/KernelOwO/blob/master/README.md"
 
 DEVICE_DEFCONFIG_FILE="$KERNEL_DIR/$DEVICE_ARCH/configs/$DEVICE_DEFCONFIG"
 IMAGE="$KERNEL_DIR/out/$DEVICE_ARCH/boot/Image"
-DTB="$KERNEL_DIR/out/$DEVICE_ARCH/boot/dtb"
-DTBO="$KERNEL_DIR/out/$DEVICE_ARCH/boot/dtbo"
+DTB="$KERNEL_DIR/out/$DEVICE_ARCH/boot/dtb.img"
+DTBO="$KERNEL_DIR/out/$DEVICE_ARCH/boot/dtbo.img"
 
 export KBUILD_BUILD_USER=Vedraj
 export KBUILD_BUILD_HOST=GitHubCI

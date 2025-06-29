@@ -32,7 +32,7 @@ if [[ $KSU_ENABLED == "true" ]]; then
 
     msg "KernelSU Version: $KERNELSU_VERSION"
     msg "SuSFS version: $SUSFS_VERSION"
-    echo "-qgki-κsu" > $KERNEL_DIR/localversion
+    sed -i "s/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=\"-qgki-κsu\"/" $DEVICE_DEFCONFIG_FILE
 fi
 if [[ $KSU_ENABLED == "false" ]]; then
     echo "KernelSU Disabled"

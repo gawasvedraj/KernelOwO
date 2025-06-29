@@ -5,8 +5,8 @@
 
 # Kernel
 KERNEL_NAME="QGKI"
-KERNEL_GIT="https://github.com/gawasvedraj/kernel_xiaomi_stone.git"
-KERNEL_BRANCH="curse"
+KERNEL_GIT="https://github.com/gawasvedraj/android_kernel_xiaomi_stone.git"
+KERNEL_BRANCH="16"
 
 # KernelSU
 KERNELSU_REPO="backslashxx/KernelSU"
@@ -40,8 +40,7 @@ fi
 
 if [[ $2 == *.git ]]; then
     KERNEL_GIT=$2
-    KERNEL_TEMP=$(echo $2 | cut -d"@" -f2)
-    echo "Input changed KERNEL_GIT to $KERNEL_TEMP"
+    echo "Input changed KERNEL_GIT to $KERNEL_GIT"
 fi
 
 # Set variables

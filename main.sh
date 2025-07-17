@@ -6,7 +6,7 @@
 # Kernel
 KERNEL_NAME="QGKI"
 KERNEL_GIT="https://github.com/gawasvedraj/android_kernel_xiaomi_stone.git"
-KERNEL_BRANCH="16"
+KERNEL_BRANCH="master"
 
 # KernelSU
 KERNELSU_REPO="backslashxx/KernelSU"

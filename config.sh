@@ -13,7 +13,7 @@ touch $KERNEL_DIR/.scmversion
 
 msg "KernelSU"
 if [[ $KSU_ENABLED == "true" ]]; then
-    cd $KERNEL_DIR && curl https://raw.githubusercontent.com/$KERNELSU_REPO/refs/heads/magic/kernel/setup.sh | bash -s $KERNELSU_BRANCH
+    cd $KERNEL_DIR && curl https://raw.githubusercontent.com/$KERNELSU_REPO/refs/heads/master/kernel/setup.sh | bash -s $KERNELSU_BRANCH
     msg "Importing KernelSU..."
 
     git clone https://gitlab.com/simonpunk/susfs4ksu -b kernel-5.4 susfs4ksu

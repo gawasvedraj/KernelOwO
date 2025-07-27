@@ -123,8 +123,6 @@ msg "Package"
 cd $WORKDIR
 git clone --depth=1 $ANYKERNEL3_GIT -b $ANYKERNEL3_BRANCH $WORKDIR/Anykernel3
 cd $WORKDIR/Anykernel3
-sed -i "s/device.name1=.*/device.name1=$DEVICE_CODE/" anykernel.sh
-echo "Updated AnyKernel3 device to $DEVICE_CODE"
 ls $KERNEL_DIR/out/$DEVICE_ARCH/boot/
 cp $IMAGE .
 cp $DTB $WORKDIR/Anykernel3/dtb

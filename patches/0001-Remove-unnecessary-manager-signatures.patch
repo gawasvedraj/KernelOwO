@@ -1,0 +1,28 @@
+From 4c4af89b5a4d3118658b0769371ada4893ad57c6 Mon Sep 17 00:00:00 2001
+From: Vedraj Gawas <gawasvedraj@gmail.com>
+Date: Mon, 28 Jul 2025 13:14:50 +0530
+Subject: [PATCH] Remove unnecessary manager signatures
+
+---
+ kernel/apk_sign.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/kernel/apk_sign.c b/kernel/apk_sign.c
+index d154ec56..2829a110 100644
+--- a/kernel/apk_sign.c
++++ b/kernel/apk_sign.c
+@@ -351,10 +351,7 @@ bool ksu_is_manager_apk(char *path)
+ 	}
+ 
+ 	return (check_v2_signature(path, 0x363, "4359c171f32543394cbc23ef908c4bb94cad7c8087002ba164c8230948c21549") // dummy.keystore
+-	|| check_v2_signature(path, EXPECTED_SIZE, EXPECTED_HASH)  // ksu official
+-	|| check_v2_signature(path, 384, "7e0c6d7278a3bb8e364e0fcba95afaf3666cf5ff3c245a3b63c8833bd0445cc4")  // 5ec1cff/KernelSU
+ 	|| check_v2_signature(path, 0x396, "f415f4ed9435427e1fdf7f1fccd4dbc07b3d6b8751e4dbcec6f19671f427870b")  // rsuntk/KernelSU
+-	|| check_v2_signature(path, 0x3e6, "79e590113c4c4c0c222978e413a5faa801666957b1212a328e46c00c69821bf7")  // rifsxd/KernelSU-Next
+-	|| check_v2_signature(path, 0x35c, "947ae944f3de4ed4c21a7e4f7953ecf351bfa2b36239da37a34111ad29993eef")  // ShirkNeko/SukiSU-Ultra
++	|| check_v2_signature(path, 0x3a6, "d06917e6deece7bf9b3278b1bb4ca4123c7d546bfebfd204915465804750bd03")  // selfmusing/USlenreK
+ 	);
+ }
+-- 
+2.50.1
+

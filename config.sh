@@ -16,6 +16,9 @@ if [[ $KSU_ENABLED == "true" ]]; then
     cd $KERNEL_DIR && curl https://raw.githubusercontent.com/$KERNELSU_REPO/refs/heads/master/kernel/setup.sh | bash -s $KERNELSU_BRANCH
     msg "Importing KernelSU..."
 
+    cd KernelSU && curl https://raw.githubusercontent.com/gawasvedraj/KernelOwO/refs/heads/master/patches/0001-Remove-unnecessary-manager-signatures.patch | patch -p1 -F3 && msg "Signatures patched successfully"
+    cd $KERNEL_DIR
+
     git clone https://gitlab.com/simonpunk/susfs4ksu -b kernel-5.4 susfs4ksu
     cp susfs4ksu/kernel_patches/fs/* fs/
     cp susfs4ksu/kernel_patches/include/linux/* include/linux/

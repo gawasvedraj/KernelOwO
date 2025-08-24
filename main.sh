@@ -5,12 +5,12 @@
 
 # Kernel
 KERNEL_NAME="QGKI"
-KERNEL_GIT="https://github.com/gawasvedraj/android_kernel_xiaomi_stone.git"
+KERNEL_GIT="https://github.com/gawasvedraj/kernel_xiaomi_stone.git"
 KERNEL_BRANCH="master"
 
 # KernelSU
 KERNELSU_REPO="backslashxx/KernelSU"
-KERNELSU_BRANCH="12107+155"
+KERNELSU_BRANCH="master"
 KSU_ENABLED="false"
 
 # Anykernel3
@@ -19,7 +19,7 @@ ANYKERNEL3_BRANCH="stone"
 
 # Build
 DEVICE_CODE="stone"
-DEVICE_DEFCONFIG="moonstone_defconfig"
+DEVICE_DEFCONFIG="stone_defconfig"
 COMMON_DEFCONFIG=""
 DEVICE_ARCH="arch/arm64"
 
@@ -153,8 +153,6 @@ echo "
 
 - **[Kernel]($KERNEL_SOURCE) Version**: $KERNEL_VERSION
 - **[KernelSU]($KERNELSU_SOURCE) Version**: $KERNELSU_VERSION
-- **[SuSFS](https://gitlab.com/simonpunk/susfs4ksu) Version**: $SUSFS_VERSION
-- **Note**: Use [xx Manager](https://github.com/backslashxx/KernelSU/releases/latest).
 
 <br>
 

@@ -16,23 +16,13 @@ if [[ $KSU_ENABLED == "true" ]]; then
     cd $KERNEL_DIR && curl https://raw.githubusercontent.com/$KERNELSU_REPO/refs/heads/master/kernel/setup.sh | bash -s $KERNELSU_BRANCH
     msg "Importing KernelSU..."
 
-    git clone https://gitlab.com/simonpunk/susfs4ksu -b kernel-5.4 susfs4ksu
-    cp susfs4ksu/kernel_patches/fs/* fs/
-    cp susfs4ksu/kernel_patches/include/linux/* include/linux/
-    patch -p1 -F 3 < susfs4ksu/kernel_patches/50_add_susfs_in_kernel-5.4.patch
-    msg "Importing SuSFS into 5.4 kernel..."
-
     echo "CONFIG_KSU=y" >> $DEVICE_DEFCONFIG_FILE
-    echo "CONFIG_KSU_SUSFS=y" >> $DEVICE_DEFCONFIG_FILE
     echo "CONFIG_KPROBES=n" >> $DEVICE_DEFCONFIG_FILE # it will conflict with KSU hooks if it's on
 
     KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
     KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10200))
-    SUSFS_VERSION=$(grep "SUSFS_VERSION" $KERNEL_DIR/include/linux/susfs.h | cut -d '"' -f2 )
 
     msg "KernelSU Version: $KERNELSU_VERSION"
-    msg "SuSFS version: $SUSFS_VERSION"
-    sed -i "s/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=\"-qgki-κsu\"/" $DEVICE_DEFCONFIG_FILE
 fi
 if [[ $KSU_ENABLED == "false" ]]; then
     echo "KernelSU Disabled"
@@ -42,5 +32,4 @@ if [[ $KSU_ENABLED == "false" ]]; then
     echo "CONFIG_APATCH_SUPPORT=y" >> $DEVICE_DEFCONFIG_FILE
 
     KERNELSU_VERSION="Disabled"
-    SUSFS_VERSION="Disabled"
 fi

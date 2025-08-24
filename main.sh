@@ -4,13 +4,13 @@
 # ------------------------------------------------------------
 
 # Kernel
-KERNEL_NAME="QGKI"
+KERNEL_NAME="Protium"
 KERNEL_GIT="https://github.com/gawasvedraj/android_kernel_xiaomi_stone.git"
 KERNEL_BRANCH="master"
 
 # KernelSU
-KERNELSU_REPO="backslashxx/KernelSU"
-KERNELSU_BRANCH="12107+155"
+KERNELSU_REPO="rsuntk/KernelSU"
+KERNELSU_BRANCH="susfs-main"
 KSU_ENABLED="false"
 
 # Anykernel3
@@ -154,7 +154,6 @@ echo "
 - **[Kernel]($KERNEL_SOURCE) Version**: $KERNEL_VERSION
 - **[KernelSU]($KERNELSU_SOURCE) Version**: $KERNELSU_VERSION
 - **[SuSFS](https://gitlab.com/simonpunk/susfs4ksu) Version**: $SUSFS_VERSION
-- **Note**: Use [xx Manager](https://github.com/backslashxx/KernelSU/releases/latest).
 
 <br>
 

@@ -4,7 +4,7 @@
 # ------------------------------------------------------------
 
 # Kernel
-KERNEL_NAME="QGKI"
+KERNEL_NAME="Protium"
 KERNEL_GIT="https://github.com/gawasvedraj/kernel_xiaomi_stone.git"
 KERNEL_BRANCH="master"
 

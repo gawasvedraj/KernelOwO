@@ -10,7 +10,7 @@ KERNEL_BRANCH="master"
 
 # KernelSU
 KERNELSU_REPO="backslashxx/KernelSU"
-KERNELSU_BRANCH="12107+155"
+KERNELSU_BRANCH="12114+155"
 KSU_ENABLED="false"
 
 # Anykernel3

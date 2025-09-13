@@ -9,7 +9,7 @@ KERNEL_GIT="https://github.com/gawasvedraj/android_kernel_xiaomi_stone.git"
 KERNEL_BRANCH="master"
 
 # KernelSU
-KERNELSU_REPO="rsuntk/KernelSU"
+KERNELSU_REPO="SukiSU-Ultra/SukiSU-Ultra"
 KERNELSU_BRANCH="susfs-main"
 KSU_ENABLED="false"
 

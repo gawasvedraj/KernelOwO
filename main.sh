@@ -152,7 +152,6 @@ echo "
 <br>
 
 - **[Kernel]($KERNEL_SOURCE) Version**: $KERNEL_VERSION
-- **[KernelSU]($KERNELSU_SOURCE) Version**: $KERNELSU_VERSION
 - **[SuSFS](https://gitlab.com/simonpunk/susfs4ksu) Version**: $SUSFS_VERSION
 
 <br>

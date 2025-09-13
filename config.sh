@@ -38,13 +38,9 @@ if [[ $KSU_ENABLED == "true" ]]; then
     echo "CONFIG_KSU_SUSFS_SUS_SU=n" >> $DEVICE_DEFCONFIG_FILE
     echo "CONFIG_KPROBES=n" >> $DEVICE_DEFCONFIG_FILE # it will conflict with KSU hooks if it's on
 
-    KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
-    KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10200))
     SUSFS_VERSION=$(grep "SUSFS_VERSION" $KERNEL_DIR/include/linux/susfs.h | cut -d '"' -f2 )
 
-    msg "KernelSU Version: $KERNELSU_VERSION"
     msg "SuSFS version: $SUSFS_VERSION"
-    sed -i "s/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=\"-qgki-κsu\"/" $DEVICE_DEFCONFIG_FILE
 fi
 if [[ $KSU_ENABLED == "false" ]]; then
     echo "KernelSU Disabled"
@@ -53,6 +49,5 @@ if [[ $KSU_ENABLED == "false" ]]; then
     echo "CONFIG_KPROBES=n" >> $DEVICE_DEFCONFIG_FILE # just in case KSU is left on by default
     echo "CONFIG_APATCH_SUPPORT=y" >> $DEVICE_DEFCONFIG_FILE
 
-    KERNELSU_VERSION="Disabled"
     SUSFS_VERSION="Disabled"
 fi

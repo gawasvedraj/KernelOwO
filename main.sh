@@ -10,7 +10,7 @@ KERNEL_BRANCH="master"
 
 # KernelSU
 KERNELSU_REPO="backslashxx/KernelSU"
-KERNELSU_BRANCH="master"
+KERNELSU_BRANCH="staging"
 KSU_ENABLED="false"
 
 # Anykernel3

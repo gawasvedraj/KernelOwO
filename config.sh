@@ -16,6 +16,7 @@ if [[ $KSU_ENABLED == "true" ]]; then
     cd $KERNEL_DIR
 
     echo "CONFIG_KSU=y" >> $DEVICE_DEFCONFIG_FILE
+    echo "CONFIG_KSU_EXTRAS=y" >> $DEVICE_DEFCONFIG_FILE
     echo "CONFIG_KPROBES=n" >> $DEVICE_DEFCONFIG_FILE # it will conflict with KSU hooks if it's on
 
     KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)

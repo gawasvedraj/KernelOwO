@@ -24,8 +24,8 @@ COMMON_DEFCONFIG=""
 DEVICE_ARCH="arch/arm64"
 
 # Clang
-CLANG_REPO="crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r547379"
-CLANG_BRANCH="15.0"
+CLANG_REPO="greenforce-project/greenforce_clang"
+CLANG_BRANCH="main"
 
 # ------------------------------------------------------------
 
@@ -48,7 +48,7 @@ KERNEL_SOURCE="${KERNEL_REPO::-1}/tree/$KERNEL_BRANCH"
 KERNEL_DIR="$WORKDIR/$KERNEL_NAME"
 
 KERNELSU_SOURCE="https://github.com/$KERNELSU_REPO"
-CLANG_SOURCE="https://gitlab.com/$CLANG_REPO"
+CLANG_SOURCE="https://github.com/$CLANG_REPO"
 README="https://github.com/gawasvedraj/KernelOwO/blob/master/README.md"
 
 DEVICE_DEFCONFIG_FILE="$KERNEL_DIR/$DEVICE_ARCH/configs/$DEVICE_DEFCONFIG"
@@ -70,10 +70,16 @@ cd $WORKDIR
 
 # Setup
 msg "Setup"
+git config --global http.postBuffer 524288000
 
 msg "Clang"
-git config --global http.postBuffer 524288000
-git clone --depth=1 $CLANG_SOURCE --single-branch -b $CLANG_BRANCH Clang
+mkdir Clang && cd Clang
+wget -q https://raw.githubusercontent.com/$CLANG_REPO/$CLANG_BRANCH/get_latest_url.sh
+source get_latest_url.sh; rm -rf get_latest_url.sh
+wget -q $LATEST_URL -O "Clang.tar.gz"
+tar -xf Clang.tar.gz
+rm -f Clang.tar.gz
+cd $WORKDIR
 
 CLANG_VERSION="$($CLANG_DIR/clang --version | head -n 1 | cut -f1 -d "(" | sed 's/.$//')"
 # CLANG_VERSION=${CLANG_VERSION::-3}

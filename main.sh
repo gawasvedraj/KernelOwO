@@ -164,6 +164,11 @@ echo "
 
 - **[CLANG]($CLANG_SOURCE) Version**: $CLANG_VERSION
 - **LLD Version**: $LLD_VERSION
+
+<br>
+
+- **xx Manager**: [Latest](https://github.com/backslashxx/KernelSU/releases/latest)
+- **KowSU Manager**: [Latest](https://t.me/kowsu_build)
 " > bodyFile.md
 echo "$TITLE" > name.txt
 #echo "$KERNEL_NAME" > name.txt

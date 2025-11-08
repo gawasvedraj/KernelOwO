@@ -5,7 +5,7 @@
 
 # Kernel
 KERNEL_NAME="Protium"
-KERNEL_GIT="https://github.com/gawasvedraj/android_kernel_xiaomi_stone.git"
+KERNEL_GIT="https://github.com/gawasvedraj/kernel_xiaomi_stone.git"
 KERNEL_BRANCH="master"
 
 # KernelSU
@@ -19,7 +19,7 @@ ANYKERNEL3_BRANCH="stone"
 
 # Build
 DEVICE_CODE="stone"
-DEVICE_DEFCONFIG="moonstone_defconfig"
+DEVICE_DEFCONFIG="stone_defconfig"
 COMMON_DEFCONFIG=""
 DEVICE_ARCH="arch/arm64"
 

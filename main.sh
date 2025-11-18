@@ -131,8 +131,8 @@ git clone --depth=1 $ANYKERNEL3_GIT -b $ANYKERNEL3_BRANCH $WORKDIR/Anykernel3
 cd $WORKDIR/Anykernel3
 ls $KERNEL_DIR/out/$DEVICE_ARCH/boot/
 cp $IMAGE .
-cp $DTB $WORKDIR/Anykernel3/dtb
-cp $DTBO .
+cp $DTB ./dtb
+cp $DTBO ./dtbo
 
 # Archive
 mkdir -p $WORKDIR/out

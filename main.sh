@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 # SPDX-License-Identifier: GPL-2.0-only
 
+set -e
+set -o pipefail
+
 # Changable Data
 # ------------------------------------------------------------
 

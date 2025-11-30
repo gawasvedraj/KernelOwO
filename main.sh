@@ -62,7 +62,7 @@ DTB="$KERNEL_DIR/out/$DEVICE_ARCH/boot/dtb.img"
 DTBO="$KERNEL_DIR/out/$DEVICE_ARCH/boot/dtbo.img"
 
 export KBUILD_BUILD_USER=Vedraj
-export KBUILD_BUILD_HOST=GitHubCI
+export KBUILD_BUILD_HOST=YourMom
 
 # Highlight
 msg() {

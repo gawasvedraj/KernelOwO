@@ -38,6 +38,11 @@ elif [[ $1 == "NonKSU" ]]; then
     echo "Input changed KSU_ENABLED to false"
 fi
 
+if [[ $2 == *.git ]]; then
+    KERNEL_GIT=$2
+    echo "Input changed KERNEL_GIT"
+fi
+
 # Set variables
 WORKDIR="$(pwd)"
 
@@ -157,7 +162,7 @@ echo "
 
 <br>
 
-- **[Kernel]($KERNEL_SOURCE) Version**: $KERNEL_VERSION
+- **[Kernel](https://www.youtube.com/watch?v=xvFZjo5PgG0) Version**: $KERNEL_VERSION
 - **[KernelSU]($KERNELSU_SOURCE) Version**: $KERNELSU_VERSION
 
 <br>

@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+# SPDX-License-Identifier: GPL-2.0-only
 
 # Compare kernel versions in order to apply the correct patches
 version_le() {

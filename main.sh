@@ -6,7 +6,7 @@
 # Kernel
 KERNEL_NAME="Protium"
 KERNEL_GIT="https://github.com/gawasvedraj/kernel_xiaomi_stone.git"
-KERNEL_BRANCH="master"
+KERNEL_BRANCH="16"
 
 # KernelSU
 KERNELSU_REPO="backslashxx/KernelSU"

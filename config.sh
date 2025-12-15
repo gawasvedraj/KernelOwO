@@ -30,7 +30,6 @@ if [[ $KSU_ENABLED == "false" ]]; then
     cd $KERNEL_DIR
     echo "CONFIG_KSU=n" >> $DEVICE_DEFCONFIG_FILE
     echo "CONFIG_KPROBES=n" >> $DEVICE_DEFCONFIG_FILE # just in case KSU is left on by default
-    echo "CONFIG_APATCH_SUPPORT=y" >> $DEVICE_DEFCONFIG_FILE
 
     KERNELSU_VERSION="Disabled"
 fi

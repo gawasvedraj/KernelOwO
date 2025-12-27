@@ -10,8 +10,8 @@ KERNEL_GIT="https://github.com/gawasvedraj/kernel_xiaomi_stone.git"
 KERNEL_BRANCH="master"
 
 # KernelSU
-KERNELSU_REPO="backslashxx/KernelSU"
-KERNELSU_BRANCH="master"
+KERNELSU_REPO="rsuntk/KernelSU"
+KERNELSU_BRANCH="susfs-rksu-master"
 KSU_ENABLED="false"
 
 # Anykernel3
@@ -87,7 +87,7 @@ tar -xf Clang.tar.gz
 rm -f Clang.tar.gz
 cd $WORKDIR
 
-CLANG_VERSION="$($CLANG_DIR/clang --version | head -n 1 | cut -f1 -d "(" | sed 's/.$//')"
+CLANG_VERSION="$($CLANG_DIR/clang --version | head -n 1 | cut -f2 -d ")" | sed 's/.c/c/' | sed 's/.h.*//')"
 # CLANG_VERSION=${CLANG_VERSION::-3}
 LLD_VERSION="$($CLANG_DIR/ld.lld --version | head -n 1 | cut -f1 -d "(" | sed 's/.$//')"
 
@@ -165,6 +165,7 @@ echo "
 
 - **[Kernel](https://www.youtube.com/watch?v=xvFZjo5PgG0) Version**: $KERNEL_VERSION
 - **[KernelSU]($KERNELSU_SOURCE) Version**: $KERNELSU_VERSION
+- **[SuSFS](https://gitlab.com/simonpunk/susfs4ksu) Version**: $SUSFS_VERSION
 
 <br>
 
@@ -173,8 +174,7 @@ echo "
 
 <br>
 
-- **xx Manager**: [Latest](https://github.com/backslashxx/KernelSU/releases/latest)
-- **KowSU Manager**: [Latest](https://t.me/kowsu_build)
+- **RKSU Manager**: [Latest](https://github.com/rsuntk/KernelSU/releases/latest)
 " > bodyFile.md
 echo "$TITLE" > name.txt
 #echo "$KERNEL_NAME" > name.txt

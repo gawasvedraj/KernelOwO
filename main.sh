@@ -87,9 +87,9 @@ tar -xf Clang.tar.gz
 rm -f Clang.tar.gz
 cd $WORKDIR
 
-CLANG_VERSION="$($CLANG_DIR/clang --version | head -n 1 | cut -f1 -d "(" | sed 's/.$//')"
+CLANG_VERSION="$($CLANG_DIR/clang --version | head -n 1 | cut -f1 -d " ")-$($CLANG_DIR/clang --version | head -n 1 | cut -f7 -d " " | cut -f1 -d ")")$($CLANG_DIR/clang --version | head -n 1 | cut -f2 -d ")" | cut -f1 -d "(")"
 # CLANG_VERSION=${CLANG_VERSION::-3}
-LLD_VERSION="$($CLANG_DIR/ld.lld --version | head -n 1 | cut -f1 -d "(" | sed 's/.$//')"
+LLD_VERSION="$($CLANG_DIR/clang --version | head -n 1 | cut -f1 -d " ")-$($CLANG_DIR/clang --version | head -n 1 | cut -f7 -d " " | cut -f1 -d ")") $($CLANG_DIR/ld.lld --version | head -n 1 | cut -f1 -d "(")"
 
 msg "Kernel"
 git clone --depth=1 $KERNEL_GIT --single-branch -b $KERNEL_BRANCH $KERNEL_DIR

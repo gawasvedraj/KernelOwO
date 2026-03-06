@@ -18,7 +18,7 @@ if [[ $KSU_ENABLED == "true" ]]; then
 
     echo "CONFIG_KSU=y" >> $DEVICE_DEFCONFIG_FILE
     echo "CONFIG_KSU_EXTRAS=y" >> $DEVICE_DEFCONFIG_FILE
-    echo "CONFIG_KPROBES=n" >> $DEVICE_DEFCONFIG_FILE # it will conflict with KSU hooks if it's on
+    # echo "CONFIG_KPROBES=n" >> $DEVICE_DEFCONFIG_FILE # it will conflict with KSU hooks if it's on
 
     KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
     KERNELSU_VERSION=$(grep -r "DKSU_VERSION" $KERNEL_DIR/KernelSU/kernel/Makefile | cut -d '=' -f3)
@@ -29,7 +29,7 @@ if [[ $KSU_ENABLED == "false" ]]; then
     echo "KernelSU Disabled"
     cd $KERNEL_DIR
     echo "CONFIG_KSU=n" >> $DEVICE_DEFCONFIG_FILE
-    echo "CONFIG_KPROBES=n" >> $DEVICE_DEFCONFIG_FILE # just in case KSU is left on by default
+    # echo "CONFIG_KPROBES=n" >> $DEVICE_DEFCONFIG_FILE # just in case KSU is left on by default
 
     KERNELSU_VERSION="Disabled"
 fi

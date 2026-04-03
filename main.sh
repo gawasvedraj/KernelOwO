@@ -24,10 +24,6 @@ DEVICE_DEFCONFIG="stone_defconfig"
 COMMON_DEFCONFIG=""
 DEVICE_ARCH="arch/arm64"
 
-# Clang
-CLANG_REPO="greenforce-project/greenforce_clang"
-CLANG_BRANCH="main"
-
 # ------------------------------------------------------------
 
 # Input Variables
@@ -54,7 +50,7 @@ KERNEL_SOURCE="${KERNEL_REPO::-1}/tree/$KERNEL_BRANCH"
 KERNEL_DIR="$WORKDIR/$KERNEL_NAME"
 
 KERNELSU_SOURCE="https://github.com/$KERNELSU_REPO"
-CLANG_SOURCE="https://github.com/$CLANG_REPO"
+CLANG_SOURCE="https://android.googlesource.com/platform/prebuilts/clang"
 README="https://github.com/gawasvedraj/KernelOwO/blob/master/README.md"
 
 DEVICE_DEFCONFIG_FILE="$KERNEL_DIR/$DEVICE_ARCH/configs/$DEVICE_DEFCONFIG"
@@ -80,16 +76,10 @@ git config --global http.postBuffer 524288000
 
 msg "Clang"
 mkdir Clang && cd Clang
-wget -q https://raw.githubusercontent.com/$CLANG_REPO/$CLANG_BRANCH/get_latest_url.sh
-source get_latest_url.sh; rm -rf get_latest_url.sh
-wget -q $LATEST_URL -O "Clang.tar.gz"
+wget -q https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/mirror-goog-main-llvm-toolchain-source/clang-r584948.tar.gz -O "Clang.tar.gz"
 tar -xf Clang.tar.gz
 rm -f Clang.tar.gz
 cd $WORKDIR
-
-CLANG_VERSION="$($CLANG_DIR/clang --version | head -n 1 | cut -f2 -d ")" | cut -f1 -d "(" | sed 's/.$//')"
-# CLANG_VERSION=${CLANG_VERSION::-3}
-LLD_VERSION="$($CLANG_DIR/ld.lld --version | head -n 1 | cut -f1 -d "(" | sed 's/.$//')"
 
 msg "Kernel"
 git clone --depth=1 $KERNEL_GIT --single-branch -b $KERNEL_BRANCH $KERNEL_DIR
@@ -168,13 +158,8 @@ echo "
 
 <br>
 
-- **[CLANG]($CLANG_SOURCE) Version**: $CLANG_VERSION
-- **LLD Version**: $LLD_VERSION
-
-<br>
-
-- **xx Manager**: [Latest](https://github.com/backslashxx/KernelSU/releases/latest)
 - **KowSU Manager**: [Latest](https://t.me/kowsu_build)
+- **Official Manager**: [Latest](https://github.com/tiann/KernelSU/releases/latest)
 " > bodyFile.md
 echo "$TITLE" > name.txt
 #echo "$KERNEL_NAME" > name.txt

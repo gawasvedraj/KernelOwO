@@ -27,6 +27,9 @@ DEVICE_DEFCONFIG="stone_defconfig"
 COMMON_DEFCONFIG=""
 DEVICE_ARCH="arch/arm64"
 
+# Clang
+CLANG_DL="https://github.com/bachnxuan/aosp_clang_mirror/releases/download/clang-r596125-15071444/clang-r596125.tar.gz"
+
 # ------------------------------------------------------------
 
 # Input Variables
@@ -53,7 +56,6 @@ KERNEL_SOURCE="${KERNEL_REPO::-1}/tree/$KERNEL_BRANCH"
 KERNEL_DIR="$WORKDIR/$KERNEL_NAME"
 
 KERNELSU_SOURCE="https://github.com/$KERNELSU_REPO"
-CLANG_SOURCE="https://android.googlesource.com/platform/prebuilts/clang"
 README="https://github.com/gawasvedraj/KernelOwO/blob/master/README.md"
 
 DEVICE_DEFCONFIG_FILE="$KERNEL_DIR/$DEVICE_ARCH/configs/$DEVICE_DEFCONFIG"
@@ -77,15 +79,25 @@ cd $WORKDIR
 msg "Setup"
 git config --global http.postBuffer 524288000
 
-msg "Clang"
-mkdir Clang && cd Clang
-wget -q https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/mirror-goog-main-llvm-toolchain-source/clang-r584948.tar.gz -O "Clang.tar.gz"
-tar -xf Clang.tar.gz
-rm -f Clang.tar.gz
-cd $WORKDIR
+msg "Cloning Clang and Kernel in parallel..."
 
-msg "Kernel"
-git clone --depth=1 $KERNEL_GIT --single-branch -b $KERNEL_BRANCH $KERNEL_DIR
+# Kernel
+(
+    git clone --depth=1 $KERNEL_GIT --single-branch -b $KERNEL_BRANCH $KERNEL_DIR
+) &
+KERNEL_PID=$!
+
+# Clang
+(
+    mkdir -p Clang
+    aria2c -s16 -x16 -k1M $CLANG_DL -o Clang.tar.gz
+    tar -C Clang/ -zxf Clang.tar.gz
+    rm -f Clang.tar.gz
+) &
+CLANG_PID=$!
+
+wait $KERNEL_PID $CLANG_PID
+msg "Clone completed"
 
 KERNEL_VERSION=$(cat $KERNEL_DIR/Makefile | grep -w "VERSION =" | cut -d '=' -f 2 | cut -b 2-)\
 .$(cat $KERNEL_DIR/Makefile | grep -w "PATCHLEVEL =" | cut -d '=' -f 2 | cut -b 2-)\

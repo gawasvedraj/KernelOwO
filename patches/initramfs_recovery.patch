@@ -1,0 +1,90 @@
+From 88df08a827f88d5b91d17d7682c538efe57cf915 Mon Sep 17 00:00:00 2001
+From: Alexander Winkowski <dereference23@outlook.com>
+Date: Sun, 3 Mar 2024 06:49:13 +0000
+Subject: [PATCH] init: Provide an option to force built-in recovery ramdisk
+
+Signed-off-by: Alexander Winkowski <dereference23@outlook.com>
+---
+ init/initramfs.c | 12 ++++++++++++
+ usr/Kconfig      |  7 +++++++
+ 2 files changed, 19 insertions(+)
+
+diff --git a/init/initramfs.c b/init/initramfs.c
+index 71ca68f40399..99ff75539f56 100644
+--- a/init/initramfs.c
++++ b/init/initramfs.c
+@@ -666,10 +666,22 @@ static void __init populate_initrd_image(char *err)
+ static int __init populate_rootfs(void)
+ {
+ 	/* Load the built in initramfs */
++#ifndef CONFIG_INITRAMFS_FORCE_RECOVERY
+ 	char *err = unpack_to_rootfs(__initramfs_start, __initramfs_size);
++#else
++	bool is_normal_boot = strstr(saved_command_line, "androidboot.force_normal_boot=1");
++	char *err = 0;
++	if (!is_normal_boot)
++		err = unpack_to_rootfs(__initramfs_start, __initramfs_size);
++#endif
+ 	if (err)
+ 		panic("%s", err); /* Failed to decompress INTERNAL initramfs */
+ 
++#ifdef CONFIG_INITRAMFS_FORCE_RECOVERY
++	if (!is_normal_boot)
++		goto done;
++#endif
++
+ 	if (!initrd_start || IS_ENABLED(CONFIG_INITRAMFS_FORCE))
+ 		goto done;
+ 
+diff --git a/usr/Kconfig b/usr/Kconfig
+index a80cc7972274..f21c739c2c70 100644
+--- a/usr/Kconfig
++++ b/usr/Kconfig
+@@ -32,6 +32,13 @@ config INITRAMFS_FORCE
+ 	  and is useful if you cannot or don't want to change the image
+ 	  your bootloader passes to the kernel.
+ 
++config INITRAMFS_FORCE_RECOVERY
++	bool "Force built-in initramfs in recovery mode"
++	depends on ANDROID && !INITRAMFS_FORCE && INITRAMFS_SOURCE!=""
++	help
++	  This option causes the kernel to ignore the initramfs image
++	  passed to it by the bootloader when booted to recovery mode.
++
+ config INITRAMFS_ROOT_UID
+ 	int "User ID to map to 0 (user root)"
+ 	depends on INITRAMFS_SOURCE!=""
+From 030366ec83ba50b9432f495b15c8f71e6631515b Mon Sep 17 00:00:00 2001
+From: Alexander Winkowski <dereference23@outlook.com>
+Date: Sun, 3 Mar 2024 15:09:05 +0000
+Subject: [PATCH] init: Allow to load passed ramdisk with
+ INITRAMFS_FORCE_RECOVERY
+
+Signed-off-by: Alexander Winkowski <dereference23@outlook.com>
+---
+ init/initramfs.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/init/initramfs.c b/init/initramfs.c
+index 99ff75539f56..0fad7041702b 100644
+--- a/init/initramfs.c
++++ b/init/initramfs.c
+@@ -670,15 +670,16 @@ static int __init populate_rootfs(void)
+ 	char *err = unpack_to_rootfs(__initramfs_start, __initramfs_size);
+ #else
+ 	bool is_normal_boot = strstr(saved_command_line, "androidboot.force_normal_boot=1");
++	bool ignore_builtin = strstr(saved_command_line, "ignore_builtin_recovery");
+ 	char *err = 0;
+-	if (!is_normal_boot)
++	if (!is_normal_boot && !ignore_builtin)
+ 		err = unpack_to_rootfs(__initramfs_start, __initramfs_size);
+ #endif
+ 	if (err)
+ 		panic("%s", err); /* Failed to decompress INTERNAL initramfs */
+ 
+ #ifdef CONFIG_INITRAMFS_FORCE_RECOVERY
+-	if (!is_normal_boot)
++	if (!is_normal_boot && !ignore_builtin)
+ 		goto done;
+ #endif
+ 

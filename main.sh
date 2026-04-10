@@ -15,7 +15,7 @@ KERNEL_BRANCH="master"
 # KernelSU
 KERNELSU_REPO="gawasvedraj/ksu-xx"
 KERNELSU_BRANCH="master"
-KSU_ENABLED="false"
+VB_ENABLED="false"
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/gawasvedraj/AnyKernel3.git"
@@ -23,7 +23,7 @@ ANYKERNEL3_BRANCH="stone"
 
 # Build
 DEVICE_CODE="stone"
-DEVICE_DEFCONFIG="stone_defconfig"
+DEVICE_DEFCONFIG="moonstone_defconfig"
 COMMON_DEFCONFIG=""
 DEVICE_ARCH="arch/arm64"
 
@@ -33,12 +33,12 @@ CLANG_DL="https://github.com/bachnxuan/aosp_clang_mirror/releases/download/clang
 # ------------------------------------------------------------
 
 # Input Variables
-if [[ $1 == "KSU" ]]; then
-    KSU_ENABLED="true"
-    echo "Input changed KSU_ENABLED to true"
-elif [[ $1 == "NonKSU" ]]; then
-    KSU_ENABLED="false"
-    echo "Input changed KSU_ENABLED to false"
+if [[ $1 == "VB" ]]; then
+    VB_ENABLED="true"
+    echo "Input changed VB_ENABLED to true"
+elif [[ $1 == "NonVB" ]]; then
+    VB_ENABLED="false"
+    echo "Input changed VB_ENABLED to false"
 fi
 
 if [[ $2 == *.git ]]; then
@@ -63,8 +63,8 @@ IMAGE="$KERNEL_DIR/out/$DEVICE_ARCH/boot/Image"
 DTB="$KERNEL_DIR/out/$DEVICE_ARCH/boot/dtb.img"
 DTBO="$KERNEL_DIR/out/$DEVICE_ARCH/boot/dtbo.img"
 
-export KBUILD_BUILD_USER=Vedraj
-export KBUILD_BUILD_HOST=YourMom
+export KBUILD_BUILD_USER=vedu
+export KBUILD_BUILD_HOST=kbuild
 
 # Highlight
 msg() {
@@ -147,10 +147,10 @@ cp $DTBO ./dtbo
 
 # Archive
 mkdir -p $WORKDIR/out
-if [[ $KSU_ENABLED == "true" ]]; then
-  ZIP_NAME="$KERNEL_NAME-KSU.zip"
+if [[ $VB_ENABLED == "true" ]]; then
+  ZIP_NAME="$KERNEL_NAME-VB.zip"
 else
-  ZIP_NAME="$KERNEL_NAME-NonKSU.zip"
+  ZIP_NAME="$KERNEL_NAME-NonVB.zip"
 fi
 TIME=$(TZ='Europe/Berlin' date +"%Y-%m-%d %H:%M:%S")
 find ./ * -exec touch -m -d "$TIME" {} \;

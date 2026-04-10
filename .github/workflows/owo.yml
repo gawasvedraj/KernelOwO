@@ -6,37 +6,37 @@ on:
       Build_Kernel:
         required: true
         type: choice
-        default: KSU & NonKSU
+        default: VB & NonVB
         options:
-        - KSU
-        - NonKSU
-        - KSU & NonKSU
+        - VB
+        - NonVB
+        - VB & NonVB
       os:
         required: true
         type: string
         default: ubuntu-latest
 
 jobs:
-  build-ksu:
-    if: ${{ (inputs.Build_Kernel == 'KSU' || inputs.Build_Kernel == 'KSU & NonKSU') && !failure() && !cancelled() }}
+  build-vb:
+    if: ${{ (inputs.Build_Kernel == 'VB' || inputs.Build_Kernel == 'VB & NonVB') && !failure() && !cancelled() }}
     uses: ./.github/workflows/build-kernel.yml
     with:
-      include_ksu: "KSU"
+      include_vb: "VB"
       os: ${{ inputs.os }}
     secrets:
       kernel_git: ${{ secrets.Kernel_Git }}
 
-  build-nonksu:
-    if: ${{ inputs.Build_Kernel == 'NonKSU' || inputs.Build_Kernel == 'KSU & NonKSU' }}
+  build-nonvb:
+    if: ${{ inputs.Build_Kernel == 'NonVB' || inputs.Build_Kernel == 'VB & NonVB' }}
     uses: ./.github/workflows/build-kernel.yml
     with:
-      include_ksu: "NonKSU"
+      include_vb: "NonVB"
       os: ${{ inputs.os }}
     secrets:
       kernel_git: ${{ secrets.Kernel_Git }}
 
   release:
-    needs: [build-ksu, build-nonksu]
+    needs: [build-vb, build-nonvb]
     if: |
       !failure() &&
       !cancelled()
@@ -67,14 +67,14 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           mkdir -p out/artifacts
-          if [[ $(ls out/download | grep "\-KSU") ]]; then
-            cp out/download/*-KSU/bodyFile.md out/bodyFile.md
-            echo "name=$(cat out/download/*-KSU/name.txt)" >> $GITHUB_ENV
+          if [[ $(ls out/download | grep "\-VB") ]]; then
+            cp out/download/*-VB/bodyFile.md out/bodyFile.md
+            echo "name=$(cat out/download/*-VB/name.txt)" >> $GITHUB_ENV
           else
-            cp out/download/*-NonKSU/bodyFile.md out/bodyFile.md
-            echo "name=$(cat out/download/*-NonKSU/name.txt)" >> $GITHUB_ENV
+            cp out/download/*-NonVB/bodyFile.md out/bodyFile.md
+            echo "name=$(cat out/download/*-NonVB/name.txt)" >> $GITHUB_ENV
           fi
-          cp out/download/*KSU/*.zip out/artifacts/
+          cp out/download/*VB/*.zip out/artifacts/
 
       - name: Release
         id: release

@@ -7,6 +7,10 @@ set -o pipefail
 # Changable Data
 # ------------------------------------------------------------
 
+# Builder
+BUILDER_REPO="gawasvedraj/KernelOwO"
+BUILDER_BRANCH="master"
+
 # Kernel
 KERNEL_NAME="Protium"
 KERNEL_GIT="https://github.com/gawasvedraj/kernel_xiaomi_stone.git"
@@ -56,7 +60,7 @@ KERNEL_SOURCE="${KERNEL_REPO::-1}/tree/$KERNEL_BRANCH"
 KERNEL_DIR="$WORKDIR/$KERNEL_NAME"
 
 KERNELSU_SOURCE="https://github.com/$KERNELSU_REPO"
-README="https://github.com/gawasvedraj/KernelOwO/blob/master/README.md"
+README="https://github.com/$BUILDER_REPO/blob/$BUILDER_BRANCH/README.md"
 
 DEVICE_DEFCONFIG_FILE="$KERNEL_DIR/$DEVICE_ARCH/configs/$DEVICE_DEFCONFIG"
 IMAGE="$KERNEL_DIR/out/$DEVICE_ARCH/boot/Image"

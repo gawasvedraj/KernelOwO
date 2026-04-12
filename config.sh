@@ -13,7 +13,7 @@ msg "KernelSU"
 cd $KERNEL_DIR && curl https://raw.githubusercontent.com/$KERNELSU_REPO/refs/heads/master/kernel/setup.sh | bash -s $KERNELSU_BRANCH
 msg "Importing KernelSU..."
 
-cd $KERNEL_DIR/KernelSU && curl https://raw.githubusercontent.com/gawasvedraj/KernelOwO/refs/heads/master/patches/ksu/no_dummy_keystore.patch | git am
+cd $KERNEL_DIR/KernelSU && curl https://raw.githubusercontent.com/$BUILDER_REPO/refs/heads/$BUILDER_BRANCH/patches/ksu/no_dummy_keystore.patch | git am
 
 cd $KERNEL_DIR
 
@@ -33,5 +33,5 @@ if [[ $VB_ENABLED == "true" ]]; then
 fi
 if [[ $VB_ENABLED == "false" ]]; then
     msg "NonVB"
-    curl https://raw.githubusercontent.com/gawasvedraj/KernelOwO/refs/heads/master/patches/initramfs_recovery.patch | git am
+    curl https://raw.githubusercontent.com/$BUILDER_REPO/refs/heads/$BUILDER_BRANCH/patches/initramfs_recovery.patch | git am
 fi

@@ -13,7 +13,7 @@ KERNEL_GIT="https://github.com/gawasvedraj/kernel_xiaomi_stone.git"
 KERNEL_BRANCH="master"
 
 # KernelSU
-KERNELSU_REPO="gawasvedraj/ksu-xx"
+KERNELSU_REPO="backslashxx/KernelSU"
 KERNELSU_BRANCH="master"
 VB_ENABLED="false"
 

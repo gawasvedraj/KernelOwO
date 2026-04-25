@@ -32,7 +32,7 @@ COMMON_DEFCONFIG=""
 DEVICE_ARCH="arch/arm64"
 
 # Clang
-CLANG_DL="https://github.com/bachnxuan/aosp_clang_mirror/releases/download/clang-r596125-15071444/clang-r596125.tar.gz"
+CLANG_DL="https://github.com/bachnxuan/aosp_clang_mirror/releases/download/clang-r596125-15241605/clang-r596125.tar.gz"
 
 # ------------------------------------------------------------
 

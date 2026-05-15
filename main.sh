@@ -177,8 +177,7 @@ echo "
 
 <br>
 
-- **KowSU Manager**: [Latest](https://t.me/kowsu_build)
-- **Official Manager**: [Latest](https://github.com/tiann/KernelSU/releases/latest)
+- **ReSukiSU Manager**: [Latest](https://nightly.link/ReSukiSU/ReSukiSU/workflows/build-manager/main/Manager-release.zip)
 " > bodyFile.md
 echo "$TITLE" > name.txt
 #echo "$KERNEL_NAME" > name.txt

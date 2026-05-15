@@ -10,20 +10,13 @@ version_le() {
 touch $KERNEL_DIR/.scmversion
 
 msg "KernelSU"
-cd $KERNEL_DIR && curl https://raw.githubusercontent.com/$KERNELSU_REPO/refs/heads/master/kernel/setup.sh | bash -s $KERNELSU_BRANCH
+cd $KERNEL_DIR && curl https://raw.githubusercontent.com/$KERNELSU_REPO/refs/heads/$KERNELSU_BRANCH/kernel/setup.sh | bash -s $KERNELSU_BRANCH
 msg "Importing KernelSU..."
-
-cd $KERNEL_DIR/KernelSU && curl https://raw.githubusercontent.com/$BUILDER_REPO/refs/heads/$BUILDER_BRANCH/patches/ksu/no_dummy_keystore.patch | git am
 
 cd $KERNEL_DIR
 
-echo "CONFIG_KSU=y" >> $DEVICE_DEFCONFIG_FILE
-echo "CONFIG_KSU_TAMPER_SYSCALL_TABLE=y" >> $DEVICE_DEFCONFIG_FILE
-echo "CONFIG_KSU_THRONE_TRACKER_ALWAYS_THREADED=y" >> $DEVICE_DEFCONFIG_FILE
-echo "CONFIG_KPROBES=n" >> $DEVICE_DEFCONFIG_FILE # it will conflict with KSU hooks if it's on
-
 KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
-KERNELSU_VERSION=$(grep -r "DKSU_VERSION" $KERNEL_DIR/KernelSU/kernel/Makefile | cut -d '=' -f3)
+KERNELSU_VERSION=$(($KSU_GIT_VERSION + 30700))
 
 msg "KernelSU Version: $KERNELSU_VERSION"
 

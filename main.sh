@@ -17,8 +17,8 @@ KERNEL_GIT="https://github.com/gawasvedraj/kernel_xiaomi_stone.git"
 KERNEL_BRANCH="master"
 
 # KernelSU
-KERNELSU_REPO="backslashxx/KernelSU"
-KERNELSU_BRANCH="master"
+KERNELSU_REPO="ReSukiSU/ReSukiSU"
+KERNELSU_BRANCH="main"
 VB_ENABLED="false"
 
 # Anykernel3
